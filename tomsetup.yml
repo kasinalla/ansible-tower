@@ -1,0 +1,6 @@
+---
+- hosts: appserver
+  become: yes
+  roles:
+    - {role: myrole,when: ansible_os_family== "RedHat"}
+    - {role: tomdeploy,when: ansible_os_family== "RedHat"}

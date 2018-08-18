@@ -1,0 +1,25 @@
+---
+# tasks file for myrole
+- name: install tomcat 7 on redhat 7
+  yum: 
+    name: tomcat
+    state: present
+  when: ansible_os_family== "RedHat"
+- name: copy the tomcat file on all nodes
+  template:
+    src: templates/tomconfig.j2
+    dest: /usr/share/tomcat/conf/tomcat.conf  
+  when: ansible_os_family== "RedHat"    
+- name: install tomcat admin packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - tomcat-webapps
+    - tomcat-admin-webapps    
+- name: copy the tomcat user file on all nodes
+  template:
+    src: templates/tomuser.j2
+    dest: /usr/share/tomcat/conf/tomcat-users.xml   
+  notify: tomstart
+  when: ansible_os_family== "RedHat"  

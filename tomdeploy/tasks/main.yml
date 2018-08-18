@@ -1,0 +1,17 @@
+---
+# tasks file for tomdeploy
+- name: Delete the skrlogin file and and war file
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/share/tomcat/webapps/SKRlogin
+    - /usr/share/tomcat/webapps/SKRlogin.war
+  when: ansible_os_family== "RedHat"  
+
+- name: deploy the war file on all nodes
+  get_url:
+    url: https://s3-ap-southeast-1.amazonaws.com/maha4iac/SKRlogin.war
+    dest: /usr/share/tomcat/webapps/
+    force_basic_auth: yes
+  when: ansible_os_family== "RedHat"  
