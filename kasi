@@ -1,0 +1,15 @@
+[mywebservers]
+172.31.27.68
+
+[myubuntuos]
+172.31.0.65
+
+[myredhatos]
+172.31.23.90
+
+[appserver]
+172.31.27.68
+
+
+
+
